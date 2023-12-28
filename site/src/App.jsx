@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <></>;
+  return (
+    <>
+      <p className="">Hello World</p>
+    </>
+  );
 }
 
 export default App;
