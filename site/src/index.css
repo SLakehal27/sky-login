@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.underwater {
+  background-image: url("assets/underwaterdb.jpg");
+  background-size: cover;
+  background-position: end;
+}

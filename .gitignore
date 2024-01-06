@@ -7,6 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+server/node_modules
+server/dist
+
 site/node_modules
 site/dist
 site/dist-ssr
@@ -22,3 +25,4 @@ site/*.local
 *.njsproj
 *.sln
 *.sw?
+node_modules
