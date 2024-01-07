@@ -14,7 +14,6 @@ import {
 import { CreateUserDTO } from 'src/entities/user.create.dto';
 import { User } from 'src/entities/user.entity';
 import { UsersService } from 'src/services/users.service';
-import { argon2id, hash } from 'argon2';
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,13 +32,7 @@ export class UsersController {
 
   @Post()
   async addUser(@Body() createUserDTO: CreateUserDTO): Promise<User> {
-    const hashedPassword = await hash(createUserDTO.password, {
-      type: argon2id,
-    });
-    return this.usersService.createOne({
-      ...createUserDTO,
-      password: hashedPassword,
-    });
+    return this.usersService.createOne(createUserDTO);
   }
 
   @Delete(':id')
