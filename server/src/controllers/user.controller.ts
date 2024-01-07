@@ -6,12 +6,19 @@ import {
   Body,
   Delete,
   ParseIntPipe,
+  UsePipes,
+  ValidationPipe,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDTO } from 'src/entities/user.create.dto';
 import { User } from 'src/entities/user.entity';
 import { UsersService } from 'src/services/users.service';
+import { argon2id, hash } from 'argon2';
 
-@Controller('/users')
+@Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
+@UsePipes(new ValidationPipe({ whitelist: true }))
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get()
@@ -25,8 +32,14 @@ export class UsersController {
   }
 
   @Post()
-  addUser(@Body() createUserDTO: CreateUserDTO): Promise<User> {
-    return this.usersService.createOne(createUserDTO);
+  async addUser(@Body() createUserDTO: CreateUserDTO): Promise<User> {
+    const hashedPassword = await hash(createUserDTO.password, {
+      type: argon2id,
+    });
+    return this.usersService.createOne({
+      ...createUserDTO,
+      password: hashedPassword,
+    });
   }
 
   @Delete(':id')
