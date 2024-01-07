@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { serverURL } from "../consts/consts";
 
 export default function SignUpPage() {
   const [inputs, setInputs] = useState({
@@ -17,8 +18,13 @@ export default function SignUpPage() {
     setInputs(currentInputs);
   }
 
-  function preventClosing(event) {
-    event.preventDefault();
+  async function getUsers() {
+    console.log(serverURL);
+    await fetch(`${serverURL}/users`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
   }
 
   return (
@@ -39,7 +45,7 @@ export default function SignUpPage() {
       <form
         id="skysignup"
         className="flex flex-col gap-3"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           if (inputs.password != inputs.cpassword) {
             const warning = document.getElementById("warning");
@@ -47,11 +53,29 @@ export default function SignUpPage() {
             setWarning(true);
             return;
           }
-          e.target.submit();
+          const userData = {
+            username: inputs.user,
+            password: inputs.password,
+            email: inputs.email,
+          };
+
+          await fetch(`${serverURL}/users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
+          })
+            .then((res) => {
+              if (res.ok) {
+                return res.json();
+              }
+            })
+            .then((json) => {
+              console.log(json);
+            });
         }}
       >
         <div className="flex flex-col">
-          <label htmlFor="user">Username</label>
+          <label htmlFor="username">Username</label>
           <input
             id="user"
             type="text"

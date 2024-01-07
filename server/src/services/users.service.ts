@@ -19,7 +19,11 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id });
   }
 
-  createOne(createUserDTO: CreateUserDTO): Promise<User> {
-    return this.usersRepository.save(createUserDTO);
+  async createOne(createUserDTO: CreateUserDTO): Promise<User> {
+    return await this.usersRepository.save(createUserDTO);
+  }
+
+  async removeOne(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
   }
 }
