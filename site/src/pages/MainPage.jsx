@@ -34,6 +34,8 @@ export default function MainPage() {
         onSubmit={async (e) => {
           e.preventDefault();
           const data = await fetch(`${serverURL}/auth/signin`, {
+            withCredentials: true,
+            credentials: "include",
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(inputs),
