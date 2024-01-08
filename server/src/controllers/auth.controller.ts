@@ -10,11 +10,12 @@ import {
 import { CreateUserDTO } from 'src/entities/user.create.dto';
 import { User } from 'src/entities/user.entity';
 import { UserSignInDTO } from 'src/entities/user.signIn.dto';
+import { UserSignUpDTO } from 'src/entities/user.signUp.dto';
 import { AuthService } from 'src/services/auth.service';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
-@UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+@UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -24,7 +25,7 @@ export class AuthController {
   }
 
   @Post('signup')
-  signUp(@Body() createUserDTO: CreateUserDTO): Promise<User> {
+  signUp(@Body() createUserDTO: CreateUserDTO): Promise<UserSignUpDTO> {
     return this.authService.signUp(createUserDTO);
   }
 }

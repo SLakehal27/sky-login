@@ -21,8 +21,8 @@ import { UsersService } from 'src/services/users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll(): Promise<User[]> {
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
