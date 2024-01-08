@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { serverURL } from "../consts/consts";
+import github from "../assets/github-mark.png";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ export default function SignUpPage() {
   function handleChange(event) {
     const currentInputs = { ...inputs };
     currentInputs[event.target.id] = event.target.value;
-    console.log(currentInputs);
     setInputs(currentInputs);
   }
 
@@ -77,34 +77,40 @@ export default function SignUpPage() {
         }}
       >
         <div className="flex flex-col">
-          <label htmlFor="username">Username</label>
+          <label className="text-lg text-indigo-600" htmlFor="username">
+            Username
+          </label>
           <input
             id="user"
             type="text"
-            className="border-2 rounded-md w-3/12"
+            className="border-2 rounded-md w-3/12 border-indigo-400"
             onChange={handleChange}
             required
           ></input>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="email">Email</label>
+          <label className="text-lg text-indigo-600" htmlFor="email">
+            Email
+          </label>
           <input
             id="email"
             type="email"
-            className="border-2 rounded-md w-3/12"
+            className="border-2 rounded-md w-3/12 border-indigo-400"
             onChange={handleChange}
             required
           ></input>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="password">Password</label>
+          <label className="text-lg text-indigo-600" htmlFor="password">
+            Password
+          </label>
           {!warning ? (
             <input
               id="password"
               type="password"
-              className="border-2 rounded-md w-3/12"
+              className="border-2 rounded-md w-3/12 border-indigo-400"
               onChange={handleChange}
               required
             ></input>
@@ -123,12 +129,14 @@ export default function SignUpPage() {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="cpassword">Confirm Password</label>
+          <label className="text-lg text-indigo-600" htmlFor="cpassword">
+            Confirm Password
+          </label>
           {!warning ? (
             <input
               id="cpassword"
               type="password"
-              className="border-2 rounded-md w-3/12"
+              className="border-2 rounded-md w-3/12 border-indigo-400"
               onChange={handleChange}
               required
             ></input>
@@ -143,22 +151,45 @@ export default function SignUpPage() {
           )}
         </div>
       </form>
-      <button form="skysignup" className="w-3/12 border-2 rounded-md">
+      <button
+        form="skysignup"
+        className="w-3/12 border-2 rounded-md border-indigo-400 text-lg mt-4 text-indigo-60"
+      >
         Sign Up!
       </button>
+      <div className="pt-4">
+        <p>
+          Photo by{" "}
+          <a
+            className="text-indigo-400 hover:underline"
+            href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
+            target="_blank"
+          >
+            Joel Henry
+          </a>
+        </p>
+        <p>
+          Favicon by{" "}
+          <a
+            className="text-indigo-400 hover:underline"
+            target="_blank"
+            href="https://icons8.com/icon/d_2fCSrKs9Vc/flying-duck"
+          >
+            Icons8
+          </a>
+        </p>
+      </div>
 
-      <p>
-        Photo by{" "}
-        <a
-          className="text-indigo-400 hover:underline"
-          href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
-          target="_blank"
-        >
-          Joel Henry
+      <div className="flex items-center gap-2 pt-2">
+        <a href="https://github.com/SLakehal27" target="_blank">
+          <img
+            className="w-10 hover:scale-110 transition"
+            src={github}
+            alt="GitHub Logo"
+          ></img>
         </a>
-      </p>
-
-      <p>SLakehal27 2024</p>
+        <p>Copyright © 2024 SLakehal27</p>
+      </div>
     </div>
   );
 }

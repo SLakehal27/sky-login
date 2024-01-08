@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { serverURL } from "../consts/consts";
+import github from "../assets/github-mark.png";
 
 export default function MainPage() {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ export default function MainPage() {
   function handleChange(event) {
     const currentInputs = { ...inputs };
     currentInputs[event.target.id] = event.target.value;
-    console.log(currentInputs);
     setInputs(currentInputs);
   }
   return (
@@ -40,7 +40,6 @@ export default function MainPage() {
             body: JSON.stringify(inputs),
           });
           const response = await data.json();
-          console.log(response);
           if (response.error === "Unauthorized") {
             setWarning(true);
             return;
@@ -75,7 +74,6 @@ export default function MainPage() {
           ></input>
         </div>
       </form>
-
       <button
         form="skysignin"
         className="w-3/12 border-2 rounded-md border-indigo-400 text-lg mt-4 text-indigo-60"
@@ -83,18 +81,39 @@ export default function MainPage() {
         Sign In!
       </button>
 
-      <p>
-        Photo by{" "}
-        <a
-          className="text-indigo-400 hover:underline"
-          href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
-          target="_blank"
-        >
-          Joel Henry
-        </a>
-      </p>
+      <div className="pt-4">
+        <p>
+          Photo by{" "}
+          <a
+            className="text-indigo-400 hover:underline"
+            href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
+            target="_blank"
+          >
+            Joel Henry
+          </a>
+        </p>
+        <p>
+          Favicon by{" "}
+          <a
+            className="text-indigo-400 hover:underline"
+            target="_blank"
+            href="https://icons8.com/icon/d_2fCSrKs9Vc/flying-duck"
+          >
+            Icons8
+          </a>
+        </p>
+      </div>
 
-      <p>SLakehal27 2024</p>
+      <div className="flex items-center gap-2 pt-2">
+        <a href="https://github.com/SLakehal27" target="_blank">
+          <img
+            className="w-10 hover:scale-110 transition"
+            src={github}
+            alt="GitHub Logo"
+          ></img>
+        </a>
+        <p>Copyright © 2024 SLakehal27</p>
+      </div>
     </div>
   );
 }
