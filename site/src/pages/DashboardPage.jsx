@@ -3,8 +3,6 @@ import { serverURL } from "../consts/consts";
 import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
-  //TODO : Add conditionnal rendering.
-  //TODO : Create logout button that makes the appropriate fetch req.
   const [isSignedIn, setSignIn] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -15,11 +13,11 @@ export default function DashboardPage() {
         withCredentials: true,
         credentials: "include",
       });
-      const data = await response.json();
-      console.log(data);
-      if (!response) {
+      if (!response.ok) {
+        setSignIn(false);
         return;
       }
+      const data = await response.json();
       setUser(data);
       setSignIn(true);
     }
@@ -39,17 +37,20 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 bg-gradient-to-t from-pink-300 to-blue-500 h-screen flex justify-center items-center">
       {isSignedIn ? (
-        <>
-          <h1 className="text-sky-500 text-2xl"> Welcome {user.username} </h1>
-          <p>Email : {user.email}</p>
-          <button className="w-3/12 border-2 rounded-md" onClick={logout}>
+        <div className="flex flex-col items-center gap-6">
+          <h1 className="text-white text-6xl"> Welcome {user.username} </h1>
+          <p className="text-white text-2xl">Email : {user.email}</p>
+          <button
+            className="w-9/12 border-2 rounded-md text-sky-50 shadow-md text-2xl"
+            onClick={logout}
+          >
             Log out
           </button>
-        </>
+        </div>
       ) : (
-        <p>No current users</p>
+        <p className="text-white text-6xl">Bro stop looking at the code</p>
       )}
     </div>
   );

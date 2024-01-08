@@ -31,28 +31,17 @@ export default function SignUpPage() {
     console.log(data);
   }
 
-  async function getUsers() {
-    await fetch(`${serverURL}/users`)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-      });
-  }
-
   return (
     <div className="flex flex-col gap-5 p-10">
-      <p>Logo</p>
-
-      <div>
-        <h1 className="text-sky-500 text-2xl">Create your account!</h1>
-        <p>
-          Have an account?{" "}
-          <Link to="/" className="text-sky-400 hover:underline">
-            {" "}
-            Log in!
-          </Link>
-        </p>
-      </div>
+      <p className="font-salsa text-indigo-600 text-2xl">Sky-Login</p>
+      <h1 className="text-indigo-500 text-3xl">Create your account!</h1>
+      <p>
+        Have an account?{" "}
+        <Link to="/" className="text-indigo-400 hover:underline">
+          {" "}
+          Log in!
+        </Link>
+      </p>
 
       <form
         id="skysignup"
@@ -79,7 +68,6 @@ export default function SignUpPage() {
             body: JSON.stringify(userData),
           });
 
-          const data = await response.json();
           if (response.error === "Unauthorized") {
             navigate("/");
             return;
@@ -158,6 +146,19 @@ export default function SignUpPage() {
       <button form="skysignup" className="w-3/12 border-2 rounded-md">
         Sign Up!
       </button>
+
+      <p>
+        Photo by{" "}
+        <a
+          className="text-indigo-400 hover:underline"
+          href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
+          target="_blank"
+        >
+          Joel Henry
+        </a>
+      </p>
+
+      <p>SLakehal27 2024</p>
     </div>
   );
 }

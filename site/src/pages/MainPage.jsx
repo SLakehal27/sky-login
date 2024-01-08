@@ -3,7 +3,6 @@ import { useState } from "react";
 import { serverURL } from "../consts/consts";
 
 export default function MainPage() {
-  //TODO : Prob remove redundant use of handleChange lol
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     username: "",
@@ -19,11 +18,11 @@ export default function MainPage() {
   }
   return (
     <div className="flex flex-col gap-5 p-10">
-      <p>Logo</p>
-      <h1 className="text-sky-500 text-2xl">Log in to your account</h1>
-      <p>
+      <p className="font-salsa text-indigo-600 text-2xl">Sky-Login</p>
+      <h1 className="text-indigo-500 text-3xl">Log in to your account</h1>
+      <p className="text-lg">
         Don't have an account?{" "}
-        <Link to="/signup" className="text-sky-400 hover:underline">
+        <Link to="/signup" className="text-indigo-400 hover:underline">
           {" "}
           Sign up!
         </Link>
@@ -51,31 +50,51 @@ export default function MainPage() {
         }}
       >
         <div className="flex flex-col">
-          <label htmlFor="username">Username</label>
+          <label className="text-lg text-indigo-600" htmlFor="username">
+            Username
+          </label>
           <input
             id="username"
             type="text"
-            className="border-2 rounded-md w-3/12"
+            className="border-2 rounded-md w-3/12 border-indigo-400 border-indigo-400"
             onChange={handleChange}
             required
           ></input>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="password">Password</label>
+          <label className="text-lg text-indigo-600" htmlFor="password">
+            Password
+          </label>
           <input
             id="password"
             type="password"
-            className="border-2 rounded-md w-3/12"
+            className="border-2 rounded-md w-3/12 border-indigo-400"
             onChange={handleChange}
             required
           ></input>
         </div>
       </form>
 
-      <button form="skysignin" className="w-3/12 border-2 rounded-md">
+      <button
+        form="skysignin"
+        className="w-3/12 border-2 rounded-md border-indigo-400 text-lg mt-4 text-indigo-60"
+      >
         Sign In!
       </button>
+
+      <p>
+        Photo by{" "}
+        <a
+          className="text-indigo-400 hover:underline"
+          href="https://unsplash.com/photos/sunset-over-horizon-zc5_p_31U5g"
+          target="_blank"
+        >
+          Joel Henry
+        </a>
+      </p>
+
+      <p>SLakehal27 2024</p>
     </div>
   );
 }

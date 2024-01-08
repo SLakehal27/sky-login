@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.underwater {
-  background-image: url("assets/underwaterdb.jpg");
+.sky {
+  background-image: url("assets/skyjh.jpg");
   background-size: cover;
-  background-position: end;
+  background-position: bottom;
 }
