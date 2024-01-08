@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { serverURL } from "../consts/consts";
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     user: "",
     email: "",
@@ -19,7 +20,6 @@ export default function SignUpPage() {
   }
 
   async function getUsers() {
-    console.log(serverURL);
     await fetch(`${serverURL}/users`)
       .then((res) => res.json())
       .then((json) => {
@@ -59,19 +59,18 @@ export default function SignUpPage() {
             email: inputs.email,
           };
 
-          await fetch(`${serverURL}/users`, {
+          const data = await fetch(`${serverURL}/auth/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userData),
-          })
-            .then((res) => {
-              if (res.ok) {
-                return res.json();
-              }
-            })
-            .then((json) => {
-              console.log(json);
-            });
+          });
+          const response = await data.json();
+          console.log(response);
+          if (response.error === "Unauthorized") {
+            navigate("/");
+            return;
+          }
+          navigate("/dashboard");
         }}
       >
         <div className="flex flex-col">
