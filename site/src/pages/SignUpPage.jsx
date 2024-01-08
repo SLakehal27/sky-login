@@ -19,6 +19,18 @@ export default function SignUpPage() {
     setInputs(currentInputs);
   }
 
+  async function login(userData) {
+    const response = await fetch(`${serverURL}/auth/signin`, {
+      withCredentials: true,
+      credentials: "include",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
   async function getUsers() {
     await fetch(`${serverURL}/users`)
       .then((res) => res.json())
@@ -59,17 +71,20 @@ export default function SignUpPage() {
             email: inputs.email,
           };
 
-          const data = await fetch(`${serverURL}/auth/signup`, {
+          const response = await fetch(`${serverURL}/auth/signup`, {
+            withCredentials: true,
+            credentials: "include",
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userData),
           });
-          const response = await data.json();
-          console.log(response);
+
+          const data = await response.json();
           if (response.error === "Unauthorized") {
             navigate("/");
             return;
           }
+          await login(userData);
           navigate("/dashboard");
         }}
       >
